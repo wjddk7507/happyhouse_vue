@@ -1,5 +1,5 @@
 <template>
-  <b-row
+  <!-- <b-row
     class="m-2"
     @click="selectHouse"
     @mouseover="colorChange(true)"
@@ -16,7 +16,11 @@
     <b-col cols="10" class="align-self-center">
       [{{ house.일련번호 }}] {{ house.아파트 }}
     </b-col>
-  </b-row>
+  </b-row> -->
+      <div
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+      >
+      </div>
 </template>
 
 <script>
@@ -30,6 +34,9 @@ export default {
     return {
       isColor: false,
     };
+  },
+  created() {
+    console.log(house);
   },
   props: {
     house: Object,

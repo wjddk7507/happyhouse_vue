@@ -29,7 +29,7 @@ const houseStore = {
       state.guguns = [{ value: null, text: "선택하세요" }];
     },
     SET_HOUSE_LIST: (state, houses) => {
-      //   console.log(houses);
+        console.log("뮤테이션"+houses);
       state.houses = houses;
     },
     SET_DETAIL_HOUSE: (state, house) => {
@@ -79,7 +79,8 @@ const houseStore = {
       houseList(
         params,
         (response) => {
-          //   console.log(response.data.response.body.items.item);
+          console.log(params);
+          console.log(response.data);
           commit("SET_HOUSE_LIST", response.data.response.body.items.item);
         },
         (error) => {
