@@ -1,0 +1,3 @@
+- select 옵션 선택 시 bad input 문제 발생
+    - 해결
+    - https://stackoverflow.com/questions/63994411/vue-js-error-in-nexttick-typeerror-cannot-read-property-badinput-of-undef
