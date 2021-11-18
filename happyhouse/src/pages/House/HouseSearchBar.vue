@@ -1,30 +1,38 @@
 <template>
-  <b-row class="mt-4 mb-4 text-center">
-    <!-- <b-col class="sm-3">
-      <b-form-input
-        v-model.trim="dongCode"
-        placeholder="동코드 입력...(예 : 11110)"
-        @keypress.enter="sendKeyword"
-      ></b-form-input>
-    </b-col>
-    <b-col class="sm-3" align="left">
-      <b-button variant="outline-primary" @click="sendKeyword">검색</b-button>
-    </b-col> -->
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="sidoCode"
-        :options="sidos"
-        @change="gugunList"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="gugunCode"
-        :options="guguns"
-        @change="searchApt"
-      ></b-form-select>
-    </b-col>
-  </b-row>
+  <div>
+    <div class="md-layout md-gutter">
+      <div class="md-layout-item">
+        <md-field>
+          <md-select v-model="sidoCode" @md-selected="gugunList">
+            <md-option
+              v-for="(sido, index) in sidos"
+              :key="index"
+              :value="sido.value"
+            >
+              {{ sido.text }}
+            </md-option>
+          </md-select>
+        </md-field>
+      </div>
+      <div class="md-layout-item">
+        <md-field>
+          <md-select v-model="gugunCode" @md-selected="searchApt">
+            <md-option
+              v-for="(gugun, index) in guguns"
+              :key="index"
+              :value="gugun.value"
+            >
+              {{ gugun.text }}
+            </md-option>
+          </md-select>
+        </md-field>
+      </div>
+    </div>
+
+    <!-- <md-button class="md-primary md-raised" @click="movie = 'pulp-fiction'"
+      >Set Pulp Fiction</md-button
+    > -->
+  </div>
 </template>
 
 <script>
