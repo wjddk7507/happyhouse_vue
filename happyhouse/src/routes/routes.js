@@ -14,6 +14,10 @@ import BoardWrite from "@/pages/Board/BoardWrite.vue";
 import BoardDelete from "@/pages/Board/BoardDelete.vue";
 
 import Qna from "@/pages/Qna.vue";
+import QnaList from "@/pages/Qna/QnaList.vue";
+import QnaWrite from "@/pages/Qna/QnaWrite.vue";
+import QnaUpdate from "@/pages/Qna/QnaUpdate.vue";
+import QnaDelete from "@/pages/Qna/QnaDelete.vue";
 
 const routes = [
   {
@@ -86,6 +90,29 @@ const routes = [
         path: "/qna",
         name: "Qna",
         component: Qna,
+        redirect: "/qna/list",
+        children: [
+          {
+            path: "list",
+            name: "QnaList",
+            component: QnaList,
+          },
+          {
+            path: "write",
+            name: "QnaWrite",
+            component: QnaWrite,
+          },
+          {
+            path: "update/:articleno",
+            name: "QnaUpdate",
+            component: QnaUpdate,
+          },
+          {
+            path: "delete/:articleno",
+            name: "QnaDelete",
+            component: QnaDelete,
+          },
+        ],
       },
     ],
   },
