@@ -15,6 +15,14 @@
         <md-icon>content_paste</md-icon>
         <p>공지사항</p>
       </sidebar-link>
+      <sidebar-link to="/house">
+        <md-icon>home</md-icon>
+        <p>아파트 정보</p>
+      </sidebar-link>
+      <sidebar-link to="/maps">
+        <md-icon>location_on</md-icon>
+        <p>지도</p>
+      </sidebar-link>
       <sidebar-link to="/qna">
         <md-icon>library_books</md-icon>
         <p>QnA</p>
@@ -26,10 +34,6 @@
       <sidebar-link to="/icons">
         <md-icon>bubble_chart</md-icon>
         <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
       </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>

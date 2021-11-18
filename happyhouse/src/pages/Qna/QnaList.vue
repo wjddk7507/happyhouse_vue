@@ -10,9 +10,8 @@
             <p class="category">문의사항이 있으시면 남겨주세요.</p>
           </md-card-header>
         </md-card>
-      </div><md-button class="md-raised" @click="moveWrite()"
-                >문의하기</md-button
-              >
+      </div>
+      <md-button class="md-raised" @click="moveWrite()">문의하기</md-button>
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-80"
       >
@@ -49,6 +48,6 @@ export default {
     moveWrite() {
       this.$router.push({ name: "QnaWrite" });
     },
-  }
+  },
 };
 </script>

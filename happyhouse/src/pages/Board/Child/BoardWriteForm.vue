@@ -2,7 +2,7 @@
   <form>
     <md-card>
       <md-card-header data-background-color="green">
-        <input v-model="article.subject"/>
+        <input v-model="article.subject" />
       </md-card-header>
 
       <md-card-content>

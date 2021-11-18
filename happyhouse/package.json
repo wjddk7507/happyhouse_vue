@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "dev": "npm run serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "npm run serve"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -18,12 +18,14 @@
     "vue-github-buttons": "3.1.0",
     "vue-material": "1.0.0-beta-15",
     "vue-router": "3.5.2",
-    "vue-social-sharing": "3.0.8"
+    "vue-social-sharing": "3.0.8",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.13",
     "@vue/cli-plugin-eslint": "4.5.13",
     "@vue/cli-plugin-router": "4.5.13",
+    "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "4.5.13",
     "@vue/eslint-config-prettier": "6.0.0",
     "babel-eslint": "10.1.0",

@@ -31,8 +31,12 @@
             </div>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-success" @click="moveModifyArticle">수정하기</md-button>
-            <md-button class="md-raised md-success" @click="deleteArticle">삭제하기</md-button>
+            <md-button class="md-raised md-success" @click="moveModifyArticle"
+              >수정하기</md-button
+            >
+            <md-button class="md-raised md-success" @click="deleteArticle"
+              >삭제하기</md-button
+            >
           </div>
         </div>
       </md-card-content>
