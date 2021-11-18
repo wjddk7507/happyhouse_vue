@@ -19,6 +19,8 @@ import QnaWrite from "@/pages/Qna/QnaWrite.vue";
 import QnaUpdate from "@/pages/Qna/QnaUpdate.vue";
 import QnaDelete from "@/pages/Qna/QnaDelete.vue";
 
+import House from "@/pages/House.vue";
+
 const routes = [
   {
     path: "/",
@@ -52,6 +54,11 @@ const routes = [
           hideFooter: true,
         },
         component: Maps,
+      },
+      {
+        path: "/house",
+        name: "House",
+        component: House,
       },
       {
         path: "/board",
