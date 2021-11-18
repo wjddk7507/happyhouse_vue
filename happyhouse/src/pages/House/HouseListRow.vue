@@ -1,26 +1,91 @@
 <template>
-  <!-- <b-row
-    class="m-2"
-    @click="selectHouse"
-    @mouseover="colorChange(true)"
-    @mouseout="colorChange(false)"
-    :class="{ 'mouse-over-bgcolor': isColor }"
-  >
-    <b-col cols="2" class="text-center align-self-center">
-      <b-img
-        thumbnail
-        src="https://picsum.photos/250/250/?image=58"
-        alt="Image 1"
-      ></b-img>
-    </b-col>
-    <b-col cols="10" class="align-self-center">
-      [{{ house.일련번호 }}] {{ house.아파트 }}
-    </b-col>
-  </b-row> -->
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
-      >
+  <div>
+    <!-- <md-card md-with-hover>
+    <div @click="onClickCard">
+      <md-ripple>
+        <md-card-media>
+          <img src="@/assets/img/apt.png" alt="People" />
+        </md-card-media>
+
+        <div class="apt-title">
+          <div class="md-title">{{ house.아파트 }}</div>
+          <div class="md-subhead">{{ house.법정동 }}</div>
+        </div>
+
+        <md-card-actions>
+          <button @click="clickE">
+          <md-avatar class="md-avatar-icon md-accent md-small">
+            <md-icon>favorite</md-icon>
+          </md-avatar>
+          </button>
+          <button @click="clickE">
+          <md-avatar @click="clickE" class="md-avatar-icon md-primary md-small">
+            <md-icon>share</md-icon>
+          </md-avatar>
+          </button>
+        </md-card-actions>
+      </md-ripple>
+    </div>
+    </md-card>
+     -->
+    <md-card md-with-hover>
+      <div @click="onClickCard">
+        <!-- <md-ripple> -->
+        <md-card-media-actions>
+          <md-card-media>
+            <img src="@/assets/img/apt.png" alt="Cover" />
+          </md-card-media>
+          <md-card-header-text>
+            <div class="apt-title">
+              <div class="md-title">{{ house.아파트 }}</div>
+              <div class="md-subhead">{{ house.법정동 }}</div>
+            </div>
+            <p>
+              거래금액 : {{ house.거래금액 }}
+            </p>
+            <p>
+              거래일 : {{ house.년 }}-{{ house.월 }}-{{ house.일 }}
+            </p>
+            <p>
+              건축년도 : {{ house.건축년도 }}
+            </p>
+            <p>
+              전용면적 : {{ house.전용면적 }}
+            </p>
+            <p>
+              층 : {{ house.층 }}
+            </p>
+          </md-card-header-text>
+
+          <md-card-actions> </md-card-actions>
+          <md-card-actions>
+            <md-button class="md-icon-button">
+              <md-icon>favorite</md-icon>
+            </md-button>
+            <md-button class="md-icon-button">
+              <md-icon>share</md-icon>
+            </md-button>
+          </md-card-actions>
+        </md-card-media-actions>
+        <!-- </md-ripple> -->
       </div>
+    </md-card>
+  </div>
+  <!-- 거래금액: (...)
+거래유형: (...)
+건축년도: (...)
+년: (...)
+법정동: (...)
+아파트: "신동아블루아광화문의꿈"
+월: (...)
+일: (...)
+전용면적: (...)
+중개사소재지: (...)
+지번: (...)
+지역코드: (...)
+층: (...)
+해제사유발생일: (...)
+해제여부: (...) -->
 </template>
 
 <script>
@@ -35,11 +100,11 @@ export default {
       isColor: false,
     };
   },
-  created() {
-    console.log(house);
-  },
   props: {
     house: Object,
+  },
+  created() {
+    console.log(this.house);
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
@@ -51,15 +116,52 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
+    clickE() {
+      console.log("얏");
+    },
+    onClickCard() {
+      alert("드디어!");
+    },
+  },
+  filters: {
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
   },
 };
 </script>
 
-<style scoped>
-.apt {
-  width: 50px;
+//
+<style lang="scss" scoped>
+// .md-card {
+//   width: 320px;
+//   margin: 7px;
+//   display: inline-block;
+//   vertical-align: top;
+// }
+// .md-card-header {
+//   color: black;
+// }
+// .md-card img {
+//   width: 320px;
+//   height: 200px;
+//   object-fit: cover;
+// }
+// .apt-title {
+//   margin: 10px 10px 10px 10px;
+// }
+//
+</style>
+<style lang="scss" scoped>
+.md-card {
 }
-.mouse-over-bgcolor {
-  background-color: lightblue;
+.md-card img {
+  width: 320px;
+  height: 200px;
+  object-fit: cover;
+}
+.apt-title {
+  font-size: 20px;
 }
 </style>
