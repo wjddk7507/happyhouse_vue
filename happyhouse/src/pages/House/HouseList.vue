@@ -34,4 +34,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+  .md-layout {
+    display: block;
+    flex-wrap: wrap;
+  }
+</style>
