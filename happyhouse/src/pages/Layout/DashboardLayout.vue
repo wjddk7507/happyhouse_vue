@@ -70,7 +70,7 @@ export default {
   },
   data() {
     return {
-      sidebarBackground: "green",
+      sidebarBackground: "ssafy",
       sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg"),
     };
   },

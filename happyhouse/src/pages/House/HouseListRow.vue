@@ -103,9 +103,6 @@ export default {
   props: {
     house: Object,
   },
-  created() {
-    console.log(this.house);
-  },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
     selectHouse() {

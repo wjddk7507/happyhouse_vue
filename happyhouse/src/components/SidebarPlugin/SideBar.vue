@@ -61,7 +61,7 @@ export default {
       type: String,
       default: "green",
       validator: (value) => {
-        let acceptedValues = ["", "purple", "blue", "green", "orange", "red"];
+        let acceptedValues = ["", "purple", "blue", "green", "orange", "red", "ssafy"];
         return acceptedValues.indexOf(value) !== -1;
       },
     },

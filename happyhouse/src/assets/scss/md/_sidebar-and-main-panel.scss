@@ -288,6 +288,9 @@
     &[data-color="purple"]{
         @include set-background-color-button($brand-primary);
     }
+    &[data-color="ssafy"]{
+        @include set-background-color-button(#2088ce);
+    }
 }
 
 .off-canvas-sidebar{

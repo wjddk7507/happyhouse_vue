@@ -9,9 +9,9 @@
       <md-card-content>
         <div class="md-layout">
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field :class="messageClass">
+            <md-field>
               <label>아이디</label>
-              <md-input v-model="userid" type="text"></md-input>
+              <md-input v-model="user.userid" type="text"></md-input>
               <span class="md-error">There is an error</span>
             </md-field>
           </div>
@@ -19,46 +19,27 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>비밀번호</label>
-              <md-input v-model="userpwd" type="password"></md-input>
+              <md-input v-model="user.userpwd" type="password"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>비밀번호 재확인</label>
-              <md-input v-model="pwdchk" type="password"></md-input>
+              <md-input v-model="user.pwdchk" type="password"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>이름</label>
-              <md-input v-model="username" type="text"></md-input>
+              <md-input v-model="user.username" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50"></div>
-<!-- 
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>생년</label>
-              <md-input v-model="year" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>월</label>
-              <md-input v-model="month" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>일</label>
-              <md-input v-model="day" type="text"></md-input>
-            </md-field>
-          </div> -->
 
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>본인확인 이메일</label>
-              <md-input v-model="email" type="email"></md-input>
+              <md-input v-model="user.email" type="email"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50"></div>
@@ -66,17 +47,14 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>휴대전화</label>
-              <md-input v-model="phone" type="number"></md-input>
+              <md-input v-model="user.phone" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-success" @click="joinMember"
-              >Join</md-button
+            <md-button class="md-raised md-success" @click="updateMember"
+              >수정완료</md-button
             >
           </div>
-          <md-switch v-model="hasMessages"
-            >{{ !hasMessages ? "Show" : "Hide" }} Errors</md-switch
-          >
         </div>
       </md-card-content>
     </md-card>
@@ -87,45 +65,42 @@
 import http from "@/util/http-common";
 
 export default {
-  name: "MemberJoin",
+  name: "MemberUpdate",
   data() {
     return {
+      user: {
       userid: "",
       userpwd: "",
       username: "",
       email: "",
       phone: "",
-      pwdchk: "",
-      // year: "",
-      // month: "",
-      // day: "",
+      },
       hasMessages: false,
     };
   },
-  computed: {
-    messageClass() {
-      return {
-        "md-invalid": this.hasMessages,
-      };
-    },
+  created(){
+      http.get(`/user/${this.$route.params.userid}`).then(({ data }) => {
+        this.user = data;
+      });
   },
   methods: {
-    joinMember() {
+    updateMember() {
       http
-        .post(`/user/register`, {
-          userid: this.userid,
-          userpwd: this.userpwd,
-          username: this.username,
-          email: this.email,
-          phone: this.phone,
+        .put(`/user`, {
+          userid: this.user.userid,
+          userpwd: this.user.userpwd,
+          username: this.user.username,
+          email: this.user.email,
+          phone: this.user.phone,
         })
         .then(({ data }) => {
-          let msg = "등록 처리시 문제가 발생했습니다.";
+          let msg = "수정 처리시 문제가 발생했습니다.";
           if (data === "success") {
-            msg = "등록이 완료되었습니다.";
+            msg = "수정이 완료되었습니다.";
           }
           alert(msg);
-          this.$router.push({ name: "Home" });
+          
+          this.$router.push({ name: "MyPage" });
         });
     },
   },
