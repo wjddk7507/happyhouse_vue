@@ -1,6 +1,7 @@
 <template>
   <div v-if="houses && houses.length != 0" class="content">
     <div class="md-layout">
+      <p>총 {{houses.length}}개의 결과</p>
         <house-list-row
           v-for="(house, index) in houses"
           :key="index"
@@ -21,9 +22,6 @@ export default {
   name: "HouseList",
   components: {
     HouseListRow,
-  },
-  data() {
-    return {};
   },
   computed: {
     ...mapState(houseStore, ["houses"]),

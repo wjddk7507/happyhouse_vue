@@ -78,11 +78,25 @@
                 </div>
               </a>
             </li>
-
-            <md-list-item href="#/user">
-              <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
-            </md-list-item>
+            <div v-if="userInfo">
+              <md-list-item href="#/user/mypage">
+                <router-link :to="{ name: 'MyPage' }">
+                  <i class="material-icons">person</i>
+                  <p class="hidden-lg hidden-md">Profile</p>
+                </router-link>
+              </md-list-item>
+            </div>
+            <div v-else>
+              <md-list-item href="#/user/mypage">
+                <i class="material-icons">person</i>
+                <router-link :to="{ name: 'SignUp' }"
+                  ><p>회원가입</p></router-link
+                >
+                <router-link :to="{ name: 'SignIn' }"
+                  ><p>로그인</p></router-link
+                >
+              </md-list-item>
+            </div>
           </md-list>
         </div>
       </div>
@@ -91,7 +105,23 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
+  computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+  },
+  methods: {
+    ...mapMutations(memberStore, ["SET_IS_LOGIN", "SET_USER_INFO"]),
+    onClickLogout() {
+      this.SET_IS_LOGIN(false);
+      this.SET_USER_INFO(null);
+      sessionStorage.removeItem("access-token");
+      if (this.$route.path != "/") this.$router.push({ name: "Home" });
+    },
+  },
   data() {
     return {
       selectedEmployee: null,

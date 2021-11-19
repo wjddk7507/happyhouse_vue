@@ -21,9 +21,15 @@ import QnaDelete from "@/pages/Qna/QnaDelete.vue";
 
 import House from "@/pages/House.vue";
 
+import Member from "@/pages/Member.vue";
+import MemberJoin from "@/pages/Member/MemberJoin.vue";
+import MemberLogin from "@/pages/Member/MemberLogin.vue";
+import MemberMyPage from "@/pages/Member/MemberMyPage.vue";
+
 const routes = [
   {
     path: "/",
+    name: "Home",
     component: DashboardLayout,
     redirect: "/dashboard",
     children: [
@@ -33,7 +39,7 @@ const routes = [
         component: Dashboard,
       },
       {
-        path: "user",
+        path: "userp",
         name: "User Profile",
         component: UserProfile,
       },
@@ -59,6 +65,29 @@ const routes = [
         path: "/house",
         name: "House",
         component: House,
+      },
+      {
+        path: "/user",
+        name: "Member",
+        component: Member,
+        children: [
+          {
+            path: "singin",
+            name: "SignIn",
+            component: MemberLogin,
+          },
+          {
+            path: "singup",
+            name: "SignUp",
+            component: MemberJoin,
+          },
+          {
+            path: "mypage",
+            name: "MyPage",
+            // beforeEnter: onlyAuthUser,
+            component: MemberMyPage,
+          },
+        ],
       },
       {
         path: "/board",
