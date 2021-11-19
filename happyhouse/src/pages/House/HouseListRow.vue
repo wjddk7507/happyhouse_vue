@@ -40,21 +40,11 @@
               <div class="md-title">{{ house.아파트 }}</div>
               <div class="md-subhead">{{ house.법정동 }}</div>
             </div>
-            <p>
-              거래금액 : {{ house.거래금액 }}
-            </p>
-            <p>
-              거래일 : {{ house.년 }}-{{ house.월 }}-{{ house.일 }}
-            </p>
-            <p>
-              건축년도 : {{ house.건축년도 }}
-            </p>
-            <p>
-              전용면적 : {{ house.전용면적 }}
-            </p>
-            <p>
-              층 : {{ house.층 }}
-            </p>
+            <p>거래금액 : {{ house.거래금액 }}</p>
+            <p>거래일 : {{ house.년 }}-{{ house.월 }}-{{ house.일 }}</p>
+            <p>건축년도 : {{ house.건축년도 }}</p>
+            <p>전용면적 : {{ house.전용면적 }}</p>
+            <p>층 : {{ house.층 }}</p>
           </md-card-header-text>
 
           <md-card-actions> </md-card-actions>
@@ -151,8 +141,6 @@ export default {
 //
 </style>
 <style lang="scss" scoped>
-.md-card {
-}
 .md-card img {
   width: 320px;
   height: 200px;

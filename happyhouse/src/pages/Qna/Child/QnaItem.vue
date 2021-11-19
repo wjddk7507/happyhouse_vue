@@ -1,9 +1,17 @@
 <template>
   <md-card>
+    <div v-if="replyCnt > 0">
     <md-card-header data-background-color="orange">
       <h4 class="title">{{ subject }}</h4>
       <p class="category">답변완료</p>
     </md-card-header>
+    </div>
+    <div v-else>
+    <md-card-header data-background-color="default">
+      <h4 class="title">{{ subject }}</h4>
+      <p class="category">미답변</p>
+    </md-card-header>
+    </div>
     <md-card-content>
       <div>
         <md-table table-header-color="orange">
@@ -68,11 +76,13 @@ export default {
     return {
       replies: [],
       replyinput: "",
+      replyCnt: 0,
     };
   },
   created() {
-    http.get(`/reply/` + this.articleno).then(({ data }) => {
+    http.get(`/qnareply/` + this.articleno).then(({ data }) => {
       this.replies = data;
+      this.replyCnt = data.length;
     });
   },
   methods: {
@@ -94,7 +104,7 @@ export default {
     },
     writeReply(articleno) {
       http
-        .post(`/reply`, {
+        .post(`/qnareply`, {
           articleno: this.articleno,
           userid: "admin",
           content: this.replyinput,
@@ -111,7 +121,7 @@ export default {
         });
     },
     deleteReply(replyno) {
-      http.delete("/reply/" + replyno).then(({ data }) => {
+      http.delete("/qnareply/" + replyno).then(({ data }) => {
         let msg = "삭제 처리시 문제가 발생했습니다.";
         if (data === "success") {
           msg = "삭제가 완료되었습니다.";
