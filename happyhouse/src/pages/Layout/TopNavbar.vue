@@ -85,6 +85,9 @@
                   <p class="hidden-lg hidden-md">Profile</p>
                 </router-link>
               </md-list-item>
+              <md-list-item @click.prevent="onClickLogout">
+                  <p>로그아웃</p>
+              </md-list-item>
             </div>
             <div v-else>
               <md-list-item href="#/user/mypage">
@@ -121,6 +124,9 @@ export default {
       sessionStorage.removeItem("access-token");
       if (this.$route.path != "/") this.$router.push({ name: "Home" });
     },
+    toggleSidebar() {
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
   },
   data() {
     return {
@@ -136,11 +142,6 @@ export default {
         "Kevin Malone",
       ],
     };
-  },
-  methods: {
-    toggleSidebar() {
-      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    },
   },
 };
 </script>
