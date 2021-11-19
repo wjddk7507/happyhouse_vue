@@ -1,16 +1,16 @@
 <template>
   <md-card>
     <div v-if="replyCnt > 0">
-    <md-card-header data-background-color="orange">
-      <h4 class="title">{{ subject }}</h4>
-      <p class="category">답변완료</p>
-    </md-card-header>
+      <md-card-header data-background-color="orange">
+        <h4 class="title">{{ subject }}</h4>
+        <p class="category">답변완료</p>
+      </md-card-header>
     </div>
     <div v-else>
-    <md-card-header data-background-color="default">
-      <h4 class="title">{{ subject }}</h4>
-      <p class="category">미답변</p>
-    </md-card-header>
+      <md-card-header data-background-color="default">
+        <h4 class="title">{{ subject }}</h4>
+        <p class="category">미답변</p>
+      </md-card-header>
     </div>
     <md-card-content>
       <div>
@@ -114,10 +114,7 @@ export default {
           if (data === "success") {
             msg = "댓글 등록이 완료되었습니다.";
           }
-          alert(msg);
-          // 현재 route를 /list로 변경.
-          //this.$router.push({ name: "QnaList" });
-          window.location.reload();
+          this.pageUpdate();
         });
     },
     deleteReply(replyno) {
@@ -126,8 +123,13 @@ export default {
         if (data === "success") {
           msg = "삭제가 완료되었습니다.";
         }
-        alert(msg);
-        window.location.reload();
+        this.pageUpdate();
+      });
+    },
+    pageUpdate() {
+      http.get(`/qnareply/` + this.articleno).then(({ data }) => {
+        this.replies = data;
+        this.replyCnt = data.length;
       });
     },
   },
