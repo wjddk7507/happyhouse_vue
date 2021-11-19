@@ -63,27 +63,34 @@
 
 <script>
 import http from "@/util/http-common";
+import { mapState, mapMutations } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "MemberUpdate",
   data() {
     return {
       user: {
-      userid: "",
-      userpwd: "",
-      username: "",
-      email: "",
-      phone: "",
+        userid: "",
+        userpwd: "",
+        username: "",
+        email: "",
+        phone: "",
       },
       hasMessages: false,
     };
   },
-  created(){
-      http.get(`/user/${this.$route.params.userid}`).then(({ data }) => {
-        this.user = data;
-      });
+  created() {
+    http.get(`/user/${this.$route.params.userid}`).then(({ data }) => {
+      this.user = data;
+    });
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
   methods: {
+    ...mapMutations(memberStore, ["SET_USER_INFO"]),
     updateMember() {
       http
         .put(`/user`, {
@@ -97,9 +104,10 @@ export default {
           let msg = "수정 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "수정이 완료되었습니다.";
+            this.SET_USER_INFO(this.user);
           }
           alert(msg);
-          
+
           this.$router.push({ name: "MyPage" });
         });
     },
