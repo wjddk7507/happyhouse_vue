@@ -1,59 +1,44 @@
 <template>
-  <b-container class="mt-4" v-if="userInfo">
-    <b-row>
-      <b-col>
-        <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="8">
-        <b-jumbotron>
-          <template #header>My Page</template>
+  <form>
+    <md-card>
+      <md-card-header data-background-color="blue">
+        <h4 class="title">내 정보</h4>
+        <p class="category">your profile</p>
+      </md-card-header>
 
-          <template #lead> 내 정보 확인페이지입니다. </template>
+      <md-card-content>
+        <div class="md-layout">
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field> ID: {{ userInfo.userid }} </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>가입일: {{ userInfo.joindate }} </label>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field> 이름: {{ userInfo.username }} </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50"></div>
 
-          <hr class="my-4" />
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field> 이메일: {{ userInfo.email }} </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50"></div>
 
-          <b-container class="mt-4">
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">아이디</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.userid }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이름</b-col
-              ><b-col cols="4" align-self="start">{{
-                userInfo.username
-              }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이메일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.email }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">가입일</b-col
-              ><b-col cols="4" align-self="start">{{
-                userInfo.joindate
-              }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-          </b-container>
-          <hr class="my-4" />
-
-          <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
-          <b-button variant="danger" href="#">회원탈퇴</b-button>
-        </b-jumbotron>
-      </b-col>
-      <b-col></b-col>
-    </b-row>
-  </b-container>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>휴대전화: {{ userInfo.phone }}</label>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-100 text-right">
+            <md-button class="md-raised md-warning" @click="moveUpdateMember">정보수정</md-button>
+            <md-button class="md-raised md-danger" @click="deleteMember">회원탈퇴</md-button>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </form>
 </template>
 
 <script>
@@ -67,6 +52,23 @@ export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
+  created(){console.log(this.userInfo)},
+  methods: {
+    moveUpdateMember() {
+      this.$router.replace({
+        name: "MemberUpdate",
+        params: { userid: this.userInfo.userid },
+      });
+    },
+    deleteMember() {
+      if (confirm("정말로 삭제하시겠습니까?")) {
+        this.$router.replace({
+          name: "MemberDelete",
+          params: { userid: this.userInfo.userid },
+        });
+      }
+    },
+  }
 };
 </script>
 

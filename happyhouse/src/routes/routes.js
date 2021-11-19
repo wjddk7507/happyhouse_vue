@@ -28,6 +28,8 @@ import Member from "@/pages/Member.vue";
 import MemberJoin from "@/pages/Member/MemberJoin.vue";
 import MemberLogin from "@/pages/Member/MemberLogin.vue";
 import MemberMyPage from "@/pages/Member/MemberMyPage.vue";
+import MemberDelete from "@/pages/Member/MemberDelete.vue";
+import MemberUpdate from "@/pages/Member/MemberUpdate.vue";
 
 import store from "@/store/index.js";
 
@@ -112,6 +114,16 @@ const routes = [
             name: "MyPage",
             beforeEnter: onlyAuthUser,
             component: MemberMyPage,
+          },
+          {
+            path: "delete/:userid",
+            name: "MemberDelete",
+            component: MemberDelete,
+          },
+          {
+            path: "update/:userid",
+            name: "MemberUpdate",
+            component: MemberUpdate,
           },
         ],
       },
