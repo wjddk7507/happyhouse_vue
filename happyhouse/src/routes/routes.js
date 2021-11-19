@@ -8,6 +8,9 @@ import Maps from "@/pages/Maps.vue";
 
 import Board from "@/pages/Board.vue";
 import BoardList from "@/pages/Board/BoardList.vue";
+import Vue from "vue";
+import VueRouter from "vue-router";
+
 import BoardView from "@/pages/Board/BoardView.vue";
 import BoardUpdate from "@/pages/Board/BoardUpdate.vue";
 import BoardWrite from "@/pages/Board/BoardWrite.vue";
@@ -25,6 +28,29 @@ import Member from "@/pages/Member.vue";
 import MemberJoin from "@/pages/Member/MemberJoin.vue";
 import MemberLogin from "@/pages/Member/MemberLogin.vue";
 import MemberMyPage from "@/pages/Member/MemberMyPage.vue";
+
+import store from "@/store/index.js";
+
+Vue.use(VueRouter);
+
+// https://router.vuejs.org/kr/guide/advanced/navigation-guards.html
+const onlyAuthUser = async (to, from, next) => {
+  // console.log(store);
+  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
+  const getUserInfo = store._actions["memberStore/getUserInfo"];
+  let token = sessionStorage.getItem("access-token");
+  if (checkUserInfo == null && token) {
+    await getUserInfo(token);
+  }
+  if (checkUserInfo === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    // next({ name: "SignIn" });
+    router.push({ name: "SignIn" });
+  } else {
+    console.log("로그인 했다.");
+    next();
+  }
+};
 
 const routes = [
   {
@@ -84,7 +110,7 @@ const routes = [
           {
             path: "mypage",
             name: "MyPage",
-            // beforeEnter: onlyAuthUser,
+            beforeEnter: onlyAuthUser,
             component: MemberMyPage,
           },
         ],
@@ -154,4 +180,12 @@ const routes = [
   },
 ];
 
-export default routes;
+// configure router
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes, // short for routes: routes
+  linkExactActiveClass: "nav-item active",
+});
+
+export default router;

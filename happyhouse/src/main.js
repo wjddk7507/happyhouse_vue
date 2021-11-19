@@ -19,7 +19,7 @@ import VueRouter from "vue-router";
 import App from "./App";
 
 // router setup
-import routes from "./routes/routes";
+import router from "./routes/routes";
 
 // Plugins
 import GlobalComponents from "./globalComponents";
@@ -31,12 +31,8 @@ import MaterialDashboard from "./material-dashboard";
 
 import Chartist from "chartist";
 import store from "./store";
+import memberStore from "./store/modules/memberStore";
 
-// configure router
-const router = new VueRouter({
-  routes, // short for routes: routes
-  linkExactActiveClass: "nav-item active",
-});
 
 Vue.prototype.$Chartist = Chartist;
 
@@ -45,6 +41,7 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(Notifications);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -52,6 +49,12 @@ new Vue({
   render: (h) => h(App),
   router,
   store,
+  async beforeCreate() {
+    let token = sessionStorage.getItem("access-token");
+    if (memberStore.state.userInfo == null && token) {
+      await memberStore.dispatch("getUserInfo", token);
+    }
+  },
 
   data: {
     Chartist: Chartist,
