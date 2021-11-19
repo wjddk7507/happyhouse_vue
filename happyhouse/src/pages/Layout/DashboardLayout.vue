@@ -27,7 +27,7 @@
         <md-icon>library_books</md-icon>
         <p>QnA</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+      <sidebar-link :to="{name: 'MyPage'}">
         <md-icon>person</md-icon>
         <p>마이페이지</p>
       </sidebar-link>
