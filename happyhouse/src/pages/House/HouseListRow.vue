@@ -29,7 +29,7 @@
     </md-card>
      -->
     <md-card md-with-hover>
-      <div @click="onClickCard">
+      <div @click="openLoadView">
         <!-- <md-ripple> -->
         <md-card-media-actions>
           <md-card-media>
@@ -59,9 +59,13 @@
         </md-card-media-actions>
         <!-- </md-ripple> -->
       </div>
+      <div v-if="isMap">
+        <house-load-view></house-load-view>
+      </div>
     </md-card>
   </div>
-  <!-- 거래금액: (...)
+  <!-- 
+  거래금액: (...)
 거래유형: (...)
 건축년도: (...)
 년: (...)
@@ -80,6 +84,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import HouseLoadView from "@/pages/House/Child/HouseLoadView.vue";
 
 const houseStore = "houseStore";
 
@@ -88,10 +93,14 @@ export default {
   data() {
     return {
       isColor: false,
+      isMap: false,
     };
   },
   props: {
     house: Object,
+  },
+  components: {
+    HouseLoadView,
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
@@ -106,8 +115,8 @@ export default {
     clickE() {
       console.log("얏");
     },
-    onClickCard() {
-      alert("드디어!");
+    openLoadView() {
+      this.isMap = !this.isMap? true:false;
     },
   },
   filters: {
