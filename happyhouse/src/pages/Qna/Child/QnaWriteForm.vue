@@ -4,13 +4,26 @@
       <md-card-header data-background-color="orange">
         <h4 class="title">
           <md-field>
-            <md-input
-              id="subject"
-              v-model="question.subject"
-              type="text"
-              required
-              placeholder="제목 입력"
-            ></md-input>
+            <div class="md-medium-size-30 md-xsmall-size-30 md-size-30">
+              <md-select v-model="question.category">
+                <md-option
+                  v-for="(item, index) in categoryList"
+                  :key="index"
+                  :value="item"
+                >
+                  {{ item }}
+                </md-option>
+              </md-select>
+            </div>
+            <div class="md-medium-size-100 md-xsmall-size-100 md-size-100">
+              <md-input
+                id="subject"
+                v-model="question.subject"
+                type="text"
+                required
+                placeholder="제목 입력"
+              ></md-input>
+            </div>
           </md-field>
         </h4>
       </md-card-header>
@@ -71,6 +84,9 @@
 
 <script>
 import http from "@/util/http-common";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "QnaWriteForm",
@@ -81,15 +97,25 @@ export default {
     return {
       question: {},
       isUserid: false,
+      categoryList: {},
     };
+  },
+  computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
   },
   created() {
     if (this.type === "modify") {
       http.get(`/qna/${this.$route.params.articleno}`).then(({ data }) => {
         this.question = data;
+        console.log(data);
       });
       this.isUserid = true;
+    } else {
+      this.question.userid = this.userInfo.userid;
     }
+    http.get(`/qna/category`).then(({ data }) => {
+      this.categoryList = data;
+    });
   },
   methods: {
     onSubmit(event) {
@@ -120,9 +146,10 @@ export default {
       http
         .post(`/qna`, {
           //userid: this.question.userid,
-          userid: "ssafy",
+          userid: this.userInfo.userid,
           subject: this.question.subject,
           content: this.question.content,
+          category: this.question.category,
         })
         .then(({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
@@ -137,9 +164,10 @@ export default {
       http
         .put(`/qna`, {
           articleno: this.question.articleno,
-          userid: "ssafy",
+          userid: this.question.userid,
           subject: this.question.subject,
           content: this.question.content,
+          category: this.question.category,
         })
         .then(({ data }) => {
           let msg = "수정 처리시 문제가 발생했습니다.";
