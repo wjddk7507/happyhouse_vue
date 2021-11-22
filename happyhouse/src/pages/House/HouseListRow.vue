@@ -21,12 +21,16 @@
 
           <md-card-actions> </md-card-actions>
           <md-card-actions>
-            <md-button class="md-icon-button">
-              <md-icon>favorite</md-icon>
-            </md-button>
-            <md-button class="md-icon-button">
-              <md-icon>share</md-icon>
-            </md-button>
+            <div v-if="isWishList">
+              <button class="wishBtn" @click="delMyList">
+                <md-icon>favorite</md-icon>
+              </button>
+            </div>
+            <div v-else>
+              <button class="customBtn" @click="myList">
+                <md-icon>favorite</md-icon>
+              </button>
+            </div>
           </md-card-actions>
         </md-card-media-actions>
         <!-- </md-ripple> -->
@@ -55,10 +59,12 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import http from "@/util/http-common";
+import { mapActions, mapState } from "vuex";
 import HouseLoadView from "@/pages/House/Child/HouseLoadView.vue";
 
 const houseStore = "houseStore";
+const memberStore = "memberStore";
 
 export default {
   name: "HouseListRow",
@@ -66,7 +72,8 @@ export default {
     return {
       isColor: false,
       isMap: false,
-      addr: '',
+      addr: "",
+      wishlist: [],
     };
   },
   props: {
@@ -74,6 +81,29 @@ export default {
   },
   components: {
     HouseLoadView,
+  },
+  computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+    isWishList() {
+      let msg = false;
+      this.wishlist.forEach((element) => {
+        if (element.aptName == this.house.아파트) {
+          //console.log(element.aptName, this.house.아파트);
+          msg = true;
+          return msg;
+        }
+      });
+      return msg;
+    },
+  },
+  created() {
+    if (this.userInfo != null) {
+      http
+        .get(`/map/wishlist`, { params: { userid: this.userInfo.userid } })
+        .then(({ data }) => {
+          this.wishlist = data;
+        });
+    }
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse"]),
@@ -86,8 +116,49 @@ export default {
       this.isColor = flag;
     },
     openLoadView() {
-      this.addr = '서울특별시 ' + this.house.법정동 + ' '+this.house.지번;
-      this.isMap = !this.isMap? true:false;
+      this.addr = "서울특별시 " + this.house.법정동 + " " + this.house.지번;
+      this.isMap = !this.isMap ? true : false;
+    },
+    myList() {
+      alert("추가");
+      if (this.userInfo != null) {
+        http
+          .post(`/map/wishlist`, {
+            aptName: this.house.아파트,
+            dongCode: this.house.동코드,
+            dongName: this.house.법정동,
+            jibun: this.house.지번,
+            userid: this.userInfo.userid,
+          })
+          .then(({ data }) => {
+            console.log(data);
+            let msg = "위시리스트 등록시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "위시리스트 등록이 완료되었습니다.";
+              this.wishListUpdate();
+            }
+          });
+      } else {
+        alert("로그인 후 어쩌구~~");
+      }
+    },
+    delMyList() {
+      alert("삭제");
+      http.delete(`/map/wishlist`, {params:{userid:this.userInfo.userid, aptName:this.house.아파트}}).then(({ data }) => {
+        let msg = "삭제 처리시 문제가 발생했습니다.";
+        if (data === "success") {
+          msg = "삭제가 완료되었습니다.";
+        this.wishListUpdate();
+        }
+        console.log(msg);
+      });
+    },
+    wishListUpdate() {
+      http
+        .get(`/map/wishlist`, { params: { userid: this.userInfo.userid } })
+        .then(({ data }) => {
+          this.wishlist = data;
+        });
     },
   },
   filters: {
@@ -99,27 +170,6 @@ export default {
 };
 </script>
 
-//
-<style lang="scss" scoped>
-// .md-card {
-//   width: 320px;
-//   margin: 7px;
-//   display: inline-block;
-//   vertical-align: top;
-// }
-// .md-card-header {
-//   color: black;
-// }
-// .md-card img {
-//   width: 320px;
-//   height: 200px;
-//   object-fit: cover;
-// }
-// .apt-title {
-//   margin: 10px 10px 10px 10px;
-// }
-//
-</style>
 <style lang="scss" scoped>
 .md-card img {
   width: 320px;
@@ -128,5 +178,46 @@ export default {
 }
 .apt-title {
   font-size: 20px;
+}
+
+.customBtn {
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+  background-color: #ffffff;
+  border-radius: 31px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #666666;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 5px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+}
+.wishBtn {
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #ef027d 5%, #ff5bb0 100%);
+  background-color: #ef027d;
+  border-radius: 31px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #666666;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 5px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+}
+.customBtn:hover {
+  background: linear-gradient(to bottom, #ef027d 5%, #ff5bb0 100%);
+  background-color: #ef027d;
+}
+.customBtn:active {
+  position: relative;
+  top: 1px;
 }
 </style>
