@@ -9,8 +9,8 @@
         <div class="md-layout">
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
-              <label>작성자</label>
-              <md-input v-model="article.userid" disabled></md-input>
+              <label>작성자 {{userInfo.userid}}</label>
+              <md-input disabled></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
@@ -55,6 +55,10 @@
 
 <script>
 import http from "@/util/http-common";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
+
 
 export default {
   name: "BoardWriteForm",
@@ -72,7 +76,11 @@ export default {
   props: {
     type: { type: String },
   },
+  computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+  },
   created() {
+    console.log(this.userInfo);
     if (this.type === "modify") {
       http.get(`/board/${this.$route.params.articleno}`).then(({ data }) => {
         this.article = data;
@@ -84,7 +92,7 @@ export default {
     registArticle() {
       http
         .post(`/board`, {
-          userid: this.article.userid,
+          userid: this.userInfo.userid,
           subject: this.article.subject,
           content: this.article.content,
         })

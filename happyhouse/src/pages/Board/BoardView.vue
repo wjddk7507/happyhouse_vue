@@ -30,7 +30,10 @@
               {{ article.content }}
             </div>
           </div>
-          <div class="md-layout-item md-size-100 text-right">
+          <div
+            v-if="userInfo != null && userInfo.admin == 1 && userInfo.userid == article.userid"
+            class="md-layout-item md-size-100 text-right"
+          >
             <md-button class="md-raised md-success" @click="moveModifyArticle"
               >수정하기</md-button
             >
@@ -44,8 +47,11 @@
   </form>
 </template>
 <script>
-// import moment from "moment";
 import http from "@/util/http-common";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
+
 
 export default {
   name: "BoardView",
@@ -61,6 +67,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
     message() {
       if (this.article.content)
         return this.article.content.split("\n").join("<br>");

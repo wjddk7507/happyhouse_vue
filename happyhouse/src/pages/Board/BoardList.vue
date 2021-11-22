@@ -10,7 +10,7 @@
             <p class="category">공지사항 페이지입니다.</p>
           </md-card-header>
           <md-card-content>
-            <simple-table table-header-color="green"></simple-table>
+            <board-item-table table-header-color="green"></board-item-table>
           </md-card-content>
         </md-card>
       </div>
@@ -19,11 +19,12 @@
 </template>
 
 <script>
-import { SimpleTable } from "@/components";
+//import { BoardItemTable } from "@/pages/Board/Child/BoardItemTable";
+import BoardItemTable from './Child/BoardItemTable.vue';
 
 export default {
   components: {
-    SimpleTable,
+    BoardItemTable,
   },
 };
 </script>
