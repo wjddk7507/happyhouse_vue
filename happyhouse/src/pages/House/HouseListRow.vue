@@ -1,33 +1,5 @@
 <template>
   <div>
-    <!-- <md-card md-with-hover>
-    <div @click="onClickCard">
-      <md-ripple>
-        <md-card-media>
-          <img src="@/assets/img/apt.png" alt="People" />
-        </md-card-media>
-
-        <div class="apt-title">
-          <div class="md-title">{{ house.아파트 }}</div>
-          <div class="md-subhead">{{ house.법정동 }}</div>
-        </div>
-
-        <md-card-actions>
-          <button @click="clickE">
-          <md-avatar class="md-avatar-icon md-accent md-small">
-            <md-icon>favorite</md-icon>
-          </md-avatar>
-          </button>
-          <button @click="clickE">
-          <md-avatar @click="clickE" class="md-avatar-icon md-primary md-small">
-            <md-icon>share</md-icon>
-          </md-avatar>
-          </button>
-        </md-card-actions>
-      </md-ripple>
-    </div>
-    </md-card>
-     -->
     <md-card md-with-hover>
       <div @click="openLoadView">
         <!-- <md-ripple> -->
@@ -60,7 +32,7 @@
         <!-- </md-ripple> -->
       </div>
       <div v-if="isMap">
-        <house-load-view></house-load-view>
+        <house-load-view :addr="this.addr"></house-load-view>
       </div>
     </md-card>
   </div>
@@ -94,6 +66,7 @@ export default {
     return {
       isColor: false,
       isMap: false,
+      addr: '',
     };
   },
   props: {
@@ -112,10 +85,8 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
-    clickE() {
-      console.log("얏");
-    },
     openLoadView() {
+      this.addr = '서울특별시 ' + this.house.법정동 + ' '+this.house.지번;
       this.isMap = !this.isMap? true:false;
     },
   },

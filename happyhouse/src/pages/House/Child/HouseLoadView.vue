@@ -4,16 +4,11 @@
       <div class="md-layout-item">
         <md-card class="md-card-plain">
           <md-card-header data-background-color="green">
-            <h4 class="title">로드뷰</h4>
+            <h4 class="title">로드뷰 {{this.addr}}</h4>
           </md-card-header>
 
           <md-card-content>
             <div id="roadview" style="width: 100%; height: 300px"></div>
-            <!-- <div class="iframe-container hidden-sm">
-              <iframe src="https://map.kakao.com/?panoid=1042459733&pan=176.0&zoom=0&map_type=TYPE_MAP&map_attribute=ROADVIEW&urlX=523869.0&urlY=1084106.0">
-                <p>Your browser does not support iframes.</p>
-              </iframe>
-            </div> -->
           </md-card-content>
         </md-card>
       </div>
@@ -27,6 +22,9 @@ export default {
     window.kakao && window.kakao.maps
       ? this.initLoadView()
       : this.addKakaoMapScript();
+  },
+  props: {
+    addr : String,
   },
   methods: {
     addKakaoMapScript() {
@@ -64,7 +62,7 @@ export default {
           });
         }
       };
-      geocoder.addressSearch("서울특별시 행당동 349", callback);
+      geocoder.addressSearch(this.addr, callback);
     },
   },
 };
