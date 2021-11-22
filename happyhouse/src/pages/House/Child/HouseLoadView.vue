@@ -56,9 +56,10 @@ export default {
           var position = new kakao.maps.LatLng(y, x);
 
           // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-          roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+          roadviewClient.getNearestPanoId(position, 100, function (panoId) {
             console.log(panoId);
-            roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+            if(panoId != null) roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+            
           });
         }
       };
