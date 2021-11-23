@@ -16,10 +16,25 @@
     </md-table>
     <div class="pagination">
       <button class="pageBtn">&lt;</button>
-      <button class="pageBtn" v-for="index in naviSize" :key="index" @click="calPage(index)">
+      <button
+        class="pageBtn"
+        v-for="index in naviSize"
+        :key="index"
+        @click="calPage(index)"
+      >
         {{ index }}
       </button>
       <button class="pageBtn">&gt;</button>
+    </div>
+    <div class="md-layout">
+      <div class="md-layout-item md-small-size-100 md-size-25"></div>
+      <div class="md-layout-item md-small-size-100 md-size-50">
+        <md-field>
+          <label>검색어를 입력하세요</label>
+          <md-input type="text" v-model="word" @input="searchBoard()"></md-input>
+        </md-field>
+      </div>
+      <!-- <div class="md-layout-item md-small-size-100 md-size-20"></div> -->
     </div>
     <div
       v-if="userInfo != null && userInfo.admin == 1"
@@ -53,6 +68,7 @@ export default {
     return {
       selected: [],
       articles: [],
+      word: '',
       totalPageCount: 0,
       countPerPage: 5,
       currentPage: 0,
@@ -67,18 +83,28 @@ export default {
       this.$router.push({ name: "BoardWrite" });
     },
     async calPage(cur) {
-      await http.get(`/board/getTotalCount`).then(({ data }) => {
+      await http.post(`/board/getSearchCount`, { key: "subject", word: this.word }).then(({ data }) => {
         this.currentPage = cur;
         this.totalPageCount = data;
         this.naviSize = Math.ceil(this.totalPageCount / this.countPerPage);
       });
       await http
-        .get(`/board`, {
-          params: { pg: this.currentPage, spp: this.countPerPage },
-        })
+        .get(`/board`, { params: { pg: this.currentPage, spp: this.countPerPage, key: "subject", word: this.word } })
         .then(({ data }) => {
           this.articles = data;
-          // console.log(data);
+        });
+    },
+    async searchBoard() {
+      console.log("change");
+      await http.post(`/board/getSearchCount`, { key: "subject", word: this.word }).then(({ data }) => {
+        this.currentPage = 1;
+        this.totalPageCount = data;
+        this.naviSize = Math.ceil(this.totalPageCount / this.countPerPage);
+      });
+      await http
+        .get(`/board`, { params: { pg: this.currentPage, spp: this.countPerPage, key: "subject", word: this.word } })
+        .then(({ data }) => {
+          this.articles = data;
         });
     },
   },
@@ -87,30 +113,30 @@ export default {
 <style>
 .pagination {
   text-align: center;
-  margin-top:10px;
+  margin-top: 10px;
 }
 .pageBtn {
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
-	background-color:#f9f9f9;
-	border-radius:6px;
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	cursor:pointer;
-	color:#43a047;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 11px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #43a047;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 11px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
 }
 .pageBtn:hover {
-	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
-	background-color:#e9e9e9;
+  background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+  background-color: #e9e9e9;
 }
 .pageBtn:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 </style>
