@@ -120,7 +120,6 @@ export default {
       this.isMap = !this.isMap ? true : false;
     },
     myList() {
-      alert("추가");
       if (this.userInfo != null) {
         http
           .post(`/map/wishlist`, {
@@ -135,6 +134,7 @@ export default {
             let msg = "위시리스트 등록시 문제가 발생했습니다.";
             if (data === "success") {
               msg = "위시리스트 등록이 완료되었습니다.";
+              alert(msg);
               this.wishListUpdate();
             }
           });
@@ -143,15 +143,20 @@ export default {
       }
     },
     delMyList() {
-      alert("삭제");
-      http.delete(`/map/wishlist`, {params:{userid:this.userInfo.userid, aptName:this.house.아파트}}).then(({ data }) => {
-        let msg = "삭제 처리시 문제가 발생했습니다.";
-        if (data === "success") {
-          msg = "삭제가 완료되었습니다.";
-        this.wishListUpdate();
+      http
+        .delete(`/map/wishlist`, {params:{
+          userid: this.userInfo.userid,
+          aptname: this.house.아파트,
         }
-        console.log(msg);
-      });
+        })
+        .then(({ data }) => {
+          let msg = "삭제 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "위시리스트 삭제가 완료되었습니다.";
+              alert(msg);
+            this.wishListUpdate();
+          }
+        });
     },
     wishListUpdate() {
       http
