@@ -3,24 +3,26 @@
     <md-table @md-selected="onSelect">
       <md-table-row
       >
+      
         <md-table-cell>
           <img :src="news0.img" alt="" style="width:auto;">
         </md-table-cell>
-        <md-table-cell>{{ news0.content }}</md-table-cell>
+        <md-table-cell><a :href="news0.link" target='_blank'>{{ news0.content }}</a></md-table-cell>
+        
       </md-table-row>
       <md-table-row
       >
         <md-table-cell>
           <img :src="news1.img" alt="" style="width:auto;">
         </md-table-cell>
-        <md-table-cell>{{ news1.content }}</md-table-cell>
+        <md-table-cell><a :href="news1.link" target='_blank'>{{ news1.content }}</a></md-table-cell>
       </md-table-row>
       <md-table-row
       >
         <md-table-cell>
           <img :src="news2.img" alt="" style="width:auto;">
         </md-table-cell>
-        <md-table-cell>{{ news2.content }}</md-table-cell>
+        <md-table-cell><a :href="news2.link" target='_blank'>{{ news2.content }}</a></md-table-cell>
       </md-table-row>
     </md-table>
   </div>
@@ -51,3 +53,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+a {
+  text-align: left;
+}
+</style>

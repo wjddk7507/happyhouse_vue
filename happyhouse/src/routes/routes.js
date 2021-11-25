@@ -50,6 +50,20 @@ const onlyAuthUser = async (to, from, next) => {
   }
 };
 
+const alreadyAuthUser = async (to, from, next) => {
+  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
+  const getUserInfo = store._actions["memberStore/getUserInfo"];
+  let token = sessionStorage.getItem("access-token");
+  if (checkUserInfo == null && token) {
+    await getUserInfo(token);
+  }
+  if (checkUserInfo === null) {
+    next();
+  } else {
+    alert("이미 가입하셨습니다!");
+  }
+};
+
 const routes = [
   {
     path: "/",
@@ -80,6 +94,7 @@ const routes = [
           {
             path: "singup",
             name: "SignUp",
+            beforeEnter: alreadyAuthUser,
             component: MemberJoin,
           },
           {
