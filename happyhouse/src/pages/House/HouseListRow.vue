@@ -40,22 +40,6 @@
       </div>
     </md-card>
   </div>
-  <!-- 
-  거래금액: (...)
-거래유형: (...)
-건축년도: (...)
-년: (...)
-법정동: (...)
-아파트: "신동아블루아광화문의꿈"
-월: (...)
-일: (...)
-전용면적: (...)
-중개사소재지: (...)
-지번: (...)
-지역코드: (...)
-층: (...)
-해제사유발생일: (...)
-해제여부: (...) -->
 </template>
 
 <script>
@@ -145,16 +129,17 @@ export default {
     },
     delMyList() {
       http
-        .delete(`/map/wishlist`, {params:{
-          userid: this.userInfo.userid,
-          aptname: this.house.아파트,
-        }
+        .delete(`/map/wishlist`, {
+          params: {
+            userid: this.userInfo.userid,
+            aptname: this.house.아파트,
+          },
         })
         .then(({ data }) => {
           let msg = "삭제 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "위시리스트 삭제가 완료되었습니다.";
-              alert(msg);
+            alert(msg);
             this.wishListUpdate();
           }
         });

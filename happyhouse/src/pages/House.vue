@@ -4,9 +4,13 @@
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
       >
-        <maps></maps><br />
         <house-search-bar></house-search-bar>
+        <div class="md-layout-item md-medium-size-40 md-xsmall-size-40 md-size-40" style="float:left">
         <house-list />
+        </div>
+        <div class="md-layout-item md-medium-size-60 md-xsmall-size-60 md-size-60" style="float:left; margin-top:50px;">
+        <maps></maps>
+        </div>
         <!-- <house-detail /> -->
       </div>
     </div>
