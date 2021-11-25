@@ -107,7 +107,6 @@ export default {
     if (this.type === "modify") {
       http.get(`/qna/${this.$route.params.articleno}`).then(({ data }) => {
         this.question = data;
-        console.log(data);
       });
       this.isUserid = true;
     } else {

@@ -80,7 +80,6 @@ export default {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
   },
   created() {
-    console.log(this.userInfo);
     if (this.type === "modify") {
       http.get(`/board/${this.$route.params.articleno}`).then(({ data }) => {
         this.article = data;
