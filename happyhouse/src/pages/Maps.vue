@@ -1,5 +1,6 @@
 <template>
   <div>
+     <md-content class="md-elevation-6">
     <div class="map_wrap">
       <div
         id="map"
@@ -66,6 +67,7 @@
         <button @click="hideCovidCenter">지우기</button>
       </div>
     </div>
+    </md-content>
   </div>
 </template>
 <script>
