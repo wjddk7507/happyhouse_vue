@@ -62,8 +62,16 @@
         </li>
       </ul>
       <div class="button-group">
-        <button @click="markCovidCenter">코로나19</button>
-        <button @click="hideCovidCenter">지우기</button>
+        <button @click="markCovidCenter">
+          <img
+            src="../assets/img/covidCenter.png"
+            height="30"
+            width="30"
+          />코로나19
+        </button>
+        <button @click="hideCovidCenter">
+          <img src="../assets/img/eraser.png" height="45" width="45" />지우기
+        </button>
       </div>
     </div>
   </div>
