@@ -29,7 +29,7 @@
 <script>
 import http from "@/util/http-common";
 export default {
-  name: "policy-news-table",
+  name: "house-news-table",
   data() {
     return {
       news0: [],
@@ -38,7 +38,7 @@ export default {
     };
   },
   mounted() {
-    http.get(`/map/policynews`).then(({ data }) => {
+    http.get(`/map/housenews`).then(({ data }) => {
       this.news0 = data[0];
       this.news1 = data[1];
       this.news2 = data[2];

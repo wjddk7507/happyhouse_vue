@@ -34,7 +34,7 @@
               </md-tab>
 
               <md-tab id="tab-posts" md-label="업계동향" md-icon="cloud">
-                <apt-news-table></apt-news-table>
+                <house-news-table></house-news-table>
               </md-tab>
             </md-tabs>
           </template>
@@ -49,13 +49,15 @@ import TopAptList from './DashBoard/TopAptList.vue';
 import AptNewsCard from './DashBoard/AptNewsCard.vue';
 import AptNewsTable from './DashBoard/Child/AptNewsTable.vue';
 import PolicyNewsTable from './DashBoard/Child/PolicyNewsTable.vue';
+import HouseNewsTable from './DashBoard/Child/HouseNewsTable.vue';
 
 export default {
   components: {
     TopAptList,
     AptNewsCard,
     AptNewsTable,
-    PolicyNewsTable
+    PolicyNewsTable,
+    HouseNewsTable,
   },data() {
     return {
       dailySalesChart: {
