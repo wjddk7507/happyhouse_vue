@@ -81,7 +81,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon class="text-danger">warning</md-icon>
-              <a href="#pablo">회원가입 후 이용하세요</a>
+              회원가입 후 이용하세요
             </div>
           </template>
         </stats-card>
