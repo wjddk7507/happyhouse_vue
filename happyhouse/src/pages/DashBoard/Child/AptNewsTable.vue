@@ -1,46 +1,51 @@
 <template>
   <div>
-    <md-table v-model="users" @md-selected="onSelect">
+    <md-table v-model="news" @md-selected="onSelect">
       <md-table-row
-        slot="md-table-row"
-        slot-scope="{ item }"
-        md-selectable="multiple"
-        md-auto-select
       >
-        <md-table-cell>{{ item.name }}</md-table-cell>
         <md-table-cell>
-          <md-button class="md-just-icon md-simple md-primary">
-            <md-icon>edit</md-icon>
-            <md-tooltip md-direction="top">Edit</md-tooltip>
-          </md-button>
-          <md-button class="md-just-icon md-simple md-danger">
-            <md-icon>close</md-icon>
-            <md-tooltip md-direction="top">Close</md-tooltip>
-          </md-button>
+          <img :src="news0.img" alt="" style="width:auto;">
         </md-table-cell>
+        <md-table-cell>{{ news0.content }}</md-table-cell>
+      </md-table-row>
+      <md-table-row
+      >
+        <md-table-cell>
+          <img :src="news1.img" alt="" style="width:auto;">
+        </md-table-cell>
+        <md-table-cell>{{ news1.content }}</md-table-cell>
+      </md-table-row>
+      <md-table-row
+      >
+        <md-table-cell>
+          <img :src="news2.img" alt="" style="width:auto;">
+        </md-table-cell>
+        <md-table-cell>{{ news2.content }}</md-table-cell>
       </md-table-row>
     </md-table>
   </div>
 </template>
 
 <script>
+import http from "@/util/http-common";
 export default {
   name: "apt-news-table",
   data() {
     return {
-      selected: [],
-      users: [
-        {
-          name: 'Sign contract for "What are conference organizers afraid of?"',
-        },
-        {
-          name: "Lines From Great Russian Literature? Or E-mails From My Boss?",
-        },
-        {
-          name: "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
-        },
-      ],
+      news0: [],
+      news1: [],
+      news2: [],
     };
+  },
+  mounted() {
+    http.get(`/map/marketnews`).then(({ data }) => {
+      this.news0 = data[0];
+      this.news1 = data[1];
+      this.news2 = data[2];
+      console.log(this.news0);
+      console.log(this.news1);
+      console.log(this.news2);
+    });
   },
   methods: {
     onSelect: function (items) {
