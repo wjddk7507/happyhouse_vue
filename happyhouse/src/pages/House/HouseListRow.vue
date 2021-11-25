@@ -127,6 +127,7 @@ export default {
             dongCode: this.house.동코드,
             dongName: this.house.법정동,
             jibun: this.house.지번,
+            dealAmount: this.house.거래금액,
             userid: this.userInfo.userid,
           })
           .then(({ data }) => {
