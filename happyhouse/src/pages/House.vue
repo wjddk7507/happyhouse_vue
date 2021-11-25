@@ -4,6 +4,7 @@
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
       >
+        <maps></maps><br />
         <house-search-bar></house-search-bar>
         <house-list />
         <!-- <house-detail /> -->
@@ -15,6 +16,7 @@
 <script>
 import HouseSearchBar from "@/pages/House/HouseSearchBar.vue";
 import HouseList from "@/pages/House/HouseList.vue";
+import Maps from "./Maps.vue";
 // import HouseDetail from "@/pages/House/HouseDetail.vue";
 
 export default {
@@ -22,6 +24,7 @@ export default {
   components: {
     HouseSearchBar,
     HouseList,
+    Maps,
     // HouseDetail,
   },
 };
