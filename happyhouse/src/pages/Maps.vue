@@ -1,5 +1,6 @@
 <template>
   <div>
+     <md-content class="md-elevation-6">
     <div class="map_wrap">
       <div
         id="map"
@@ -74,6 +75,7 @@
         </button>
       </div>
     </div>
+    </md-content>
   </div>
 </template>
 <script>
@@ -457,7 +459,7 @@ export default {
 <style>
 #map {
   width: 690px;
-  height: 440px;
+  height: 600px;
 }
 
 .button-group {
@@ -477,7 +479,7 @@ button {
 .map_wrap {
   position: relative;
   width: 100%;
-  height: 350px;
+  height: 600px;
 }
 #category {
   position: absolute;
