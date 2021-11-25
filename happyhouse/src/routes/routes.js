@@ -1,11 +1,6 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 
 import Dashboard from "@/pages/Dashboard.vue";
-import Dashboardc from "@/pages/Dashboardc.vue";
-import UserProfile from "@/pages/UserProfile.vue";
-import Typography from "@/pages/Typography.vue";
-import Icons from "@/pages/Icons.vue";
-import Maps from "@/pages/Maps.vue";
 
 import Board from "@/pages/Board.vue";
 import BoardList from "@/pages/Board/BoardList.vue";
@@ -66,34 +61,6 @@ const routes = [
         path: "dashboard",
         name: "Dashboard",
         component: Dashboard,
-      },
-      {
-        path: "dashboardc",
-        name: "Dashboardc",
-        component: Dashboardc,
-      },
-      {
-        path: "userp",
-        name: "User Profile",
-        component: UserProfile,
-      },
-      {
-        path: "typography",
-        name: "Typography",
-        component: Typography,
-      },
-      {
-        path: "icons",
-        name: "Icons",
-        component: Icons,
-      },
-      {
-        path: "maps",
-        name: "Maps",
-        meta: {
-          hideFooter: true,
-        },
-        component: Maps,
       },
       {
         path: "/house",

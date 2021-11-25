@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-table v-model="news" @md-selected="onSelect">
+    <md-table @md-selected="onSelect">
       <md-table-row
       >
         <md-table-cell>
@@ -42,9 +42,6 @@ export default {
       this.news0 = data[0];
       this.news1 = data[1];
       this.news2 = data[2];
-      console.log(this.news0);
-      console.log(this.news1);
-      console.log(this.news2);
     });
   },
   methods: {

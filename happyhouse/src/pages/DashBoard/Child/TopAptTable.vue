@@ -22,15 +22,13 @@ export default {
   },
   data() {
     return {
-        aptlist: [],
+      aptlist: [],
     };
   },
   created() {
-      http
-        .get(`/map/TopAptList`)
-        .then(({ data }) => {
-          this.aptlist = data;
-        });
+    http.get(`/map/TopAptList`).then(({ data }) => {
+      this.aptlist = data;
+    });
   },
 };
 </script>
