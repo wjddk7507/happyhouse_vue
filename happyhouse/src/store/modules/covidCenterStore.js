@@ -34,7 +34,7 @@ const covidCenterStore = {
       covidcenterList(
         params,
         (response) => {
-          console.dir(response);
+          // console.dir(response);
           commit("SET_COVIDCENTER_LIST", response.data.data);
         },
         (error) => {

@@ -40,7 +40,7 @@
       v-if="userInfo != null && userInfo.admin == 1"
       class="md-layout-item md-size-100 text-right"
     >
-      <md-button class="md-raised md-success" @click="moveWrite()"
+      <md-button class="md-raised md-info" @click="moveWrite()"
         >글 작성</md-button
       >
     </div>
@@ -95,7 +95,6 @@ export default {
         });
     },
     async searchBoard() {
-      console.log("change");
       await http.post(`/board/getSearchCount`, { key: "subject", word: this.word }).then(({ data }) => {
         this.currentPage = 1;
         this.totalPageCount = data;
@@ -123,7 +122,7 @@ export default {
   border: 1px solid #dcdcdc;
   display: inline-block;
   cursor: pointer;
-  color: #43a047;
+  color: #3b3c3d;
   font-family: Arial;
   font-size: 15px;
   font-weight: bold;
